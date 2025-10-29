@@ -112,6 +112,7 @@ spinBtn.addEventListener("click", async () => {
     // 🌟 แสดง SweetAlert2
     if (reward > 0) {
       Swal.fire({
+        width: 'auto',
         icon: "success",
         title: "🎉 ชนะ!",
         html: `<h3 style="color:green;">ได้รับ: ${reward.toLocaleString()} บาท</h3>`,
@@ -121,6 +122,7 @@ spinBtn.addEventListener("click", async () => {
       });
     } else if (reward < 0) {
       Swal.fire({
+        width: 'auto',
         icon: "error",
         title: "😢 แพ้!",
         html: `<h3 style="color:red;">เสียเงิน: ${reward.toLocaleString()} บาท</h3>`,
@@ -130,6 +132,7 @@ spinBtn.addEventListener("click", async () => {
       });
     } else {
       Swal.fire({
+        width: 'auto',
         icon: "info",
         title: "เสมอ",
         text: "ไม่ได้ไม่เสีย",
@@ -159,6 +162,7 @@ document.getElementById("btn1").addEventListener("click", async () => {
 
   if (!name) {
     Swal.fire({
+      width: 'auto',
       icon: "warning",
       title: "⚠️ โปรดระบุชื่อ-สกุลก่อนเล่นเกม!",
       confirmButtonColor: "#ffcc00"
@@ -173,6 +177,7 @@ document.getElementById("btn1").addEventListener("click", async () => {
 
     // ✅ แสดง SweetAlert แจ้งผล
     Swal.fire({
+      width: 'auto',
       icon: "success",
       title: `🎯 ยินดีต้อนรับ ${name}!`,
       html: "ได้รับยอดเงิน 100,000 บาท <br> ขอให้โชคดีในการหมุนวงล้อ 🍀",
@@ -199,6 +204,7 @@ document.getElementById("btn1").addEventListener("click", async () => {
   } catch (error) {
     console.error("❌ Error while saving victim_name:", error);
     Swal.fire({
+      width: 'auto',
       icon: "error",
       title: "เกิดข้อผิดพลาด!",
       text: "ไม่สามารถบันทึกชื่อได้ โปรดลองอีกครั้ง",
@@ -215,17 +221,19 @@ document.getElementById("withdraw").addEventListener("click", async (e) => {
     let balance = gEquity || await store.getItem("equity");
     balance = Number(balance);
 
-    if (balance < 100000) {
+    if (balance < 1000000) {
       // ❌ กรณียอดน้อยกว่า 100,000
       Swal.fire({
+        width: 'auto',
         icon: "warning",
         title: "⚠️ ถอนไม่ได้!",
-        html: `ยอดเงินของคุณมีเพียง <b>${balance.toLocaleString()}</b> บาท<br>ยอดขั้นต่ำต้องมากว่า 100,000 บาท`,
+        html: `ยอดเงินของคุณมีเพียง <b>${balance.toLocaleString()}</b> บาท<br>ยอดขั้นต่ำต้องมากกว่า 1,000,000 บาท`,
         confirmButtonColor: "#ff8800"
       });
     } else {
       // ✅ ยอดเกิน 100,000 → ไปที่ Google
       Swal.fire({
+         width: 'auto',
         icon: "success",
         title: "✅ ถอนเงินสำเร็จ",
         text: "ระบบกำลังนำคุณไปยังหน้าธนาคาร...",
@@ -241,6 +249,7 @@ document.getElementById("withdraw").addEventListener("click", async (e) => {
   } catch (error) {
     console.error("❌ Error checking balance:", error);
     Swal.fire({
+      width: 'auto',
       icon: "error",
       title: "เกิดข้อผิดพลาด!",
       text: "ไม่สามารถตรวจสอบยอดเงินได้ โปรดลองใหม่อีกครั้ง",
