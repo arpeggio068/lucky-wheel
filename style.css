@@ -1,0 +1,249 @@
+body {
+    background: radial-gradient(circle at center, #fffbe6, #ffd480);
+    font-family: "Prompt", sans-serif;
+    text-align: center;
+    margin: 0;
+    padding-top: 30px;
+  }
+
+  .wheel-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  canvas {
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+
+  #wheel {
+    transition: transform 5s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 12px 28px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #218838;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+
+ /* 🌟 Navbar หลัก */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(90deg, #ffe066, #ffd633);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  flex-wrap: wrap; /* เพื่อให้ responsive โดยอัตโนมัติ */
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-left a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.nav-left a:hover {
+  color: #d90000;
+}
+
+.nav-right .welcome-text {
+  font-size: 18px;
+  color: #333;
+}
+
+/* 🌟 ยอดเงิน */
+.balance {
+  color: #333;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+/* 🌟 Responsive Behavior */
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .nav-left, .nav-right {
+    justify-content: center;
+  }
+
+  .balance {
+    font-size: 20px;
+  }
+}
+
+/* 🎯 ส่วนเลือกจำนวนเงิน */
+.amount-container {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.amount-container label {
+  font-weight: bold;
+  color: #333;
+  font-size: 18px;
+}
+
+/* 🎨 สไตล์ Select */
+.amount-container select {
+  padding: 10px 16px;
+  font-size: 18px;
+  border: 2px solid #ffcc00;
+  border-radius: 10px;
+  background-color: #fff8dc;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.amount-container select:hover {
+  background-color: #ffefb3;
+  border-color: #ff9900;
+}
+
+.amount-container select:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+}
+
+/* ปรับให้ responsive */
+@media (max-width: 700px) {
+  .amount-container label {
+    font-size: 16px;
+  }
+
+  .amount-container select {
+    font-size: 16px;
+    width: 80%;
+  }
+}
+
+/* 🎯 ส่วนฟอร์มกรอกชื่อก่อนเข้าเกม */
+#victim-detail {
+  background: linear-gradient(180deg, #fff9cc, #ffe680);
+  border: 2px solid #ffcc00;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  width: 360px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+#victim-detail:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* 🧾 Label */
+#victim-detail label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* ✏️ ช่องกรอกชื่อ */
+#victim-detail input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ffcc33;
+  border-radius: 10px;
+  outline: none;
+  text-align: center;
+  background-color: #fffef5;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* ✅ แก้ปัญหาขอบล้น */
+}
+
+
+#victim-detail input:focus {
+  border-color: #ffaa00;
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+/* 💾 ปุ่มบันทึก */
+#victim-detail button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ffd633, #ffcc00);
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+#victim-detail button:hover {
+  background: linear-gradient(90deg, #ffdf66, #ffb300);
+  transform: translateY(-2px);
+}
+
+/* 📱 Responsive */
+@media (max-width: 700px) {
+  #victim-detail {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+#game-detail{
+  display: none;
+}
+
+#victim-detail{
+  display: none;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+
