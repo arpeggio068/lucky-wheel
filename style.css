@@ -6,9 +6,16 @@ body {
     padding-top: 30px;
   }
 
-  .wheel-container {
+  /*.wheel-container {
     position: relative;
     display: inline-block;
+  }*/
+
+  .wheel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
   }
 
   canvas {
@@ -18,7 +25,15 @@ body {
   }
 
   #wheel {
+    max-width: 90vw; /* ไม่เกิน 90% ของความกว้างจอ */
+    height: auto;
     transition: transform 5s cubic-bezier(0.2, 0.9, 0.3, 1);
+    cursor: pointer;
+  }  
+
+  #wheel:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
   }
 
   button {
@@ -87,23 +102,6 @@ body {
   font-size: 22px;
 }
 
-/* 🌟 Responsive Behavior */
-@media (max-width: 700px) {
-  .navbar {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
-
-  .nav-left, .nav-right {
-    justify-content: center;
-  }
-
-  .balance {
-    font-size: 20px;
-  }
-}
-
 /* 🎯 ส่วนเลือกจำนวนเงิน */
 .amount-container {
   margin-top: 20px;
@@ -141,18 +139,6 @@ body {
 .amount-container select:focus {
   outline: none;
   box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
-}
-
-/* ปรับให้ responsive */
-@media (max-width: 700px) {
-  .amount-container label {
-    font-size: 16px;
-  }
-
-  .amount-container select {
-    font-size: 16px;
-    width: 80%;
-  }
 }
 
 /* 🎯 ส่วนฟอร์มกรอกชื่อก่อนเข้าเกม */
@@ -222,14 +208,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* 📱 Responsive */
-@media (max-width: 700px) {
-  #victim-detail {
-    width: 90%;
-    padding: 20px;
-  }
-}
-
 #game-detail{
   display: none;
 }
@@ -245,5 +223,197 @@ body {
 .show {
   display: block !important;
 }
+
+/* ✅ ปรับ container ให้พอดีกับจอสมาร์ตโฟน */
+.container {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 12px; /* เพิ่มระยะห่างเล็กน้อยด้านซ้ายขวา */
+  overflow-x: hidden; /* กันไม่ให้ล้นแนวนอน */
+}
+
+/* ✅ ป้องกัน element ภายในล้น */
+body, html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ป้องกันการเลื่อนแนวนอน */
+}
+
+/*
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .nav-left, .nav-right {
+    justify-content: center;
+  }
+
+  .balance {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .amount-container label {
+    font-size: 16px;
+  }
+
+  .amount-container select {
+    font-size: 16px;
+    width: 80%;
+  }
+}
+
+@media (max-width: 700px) {
+  #victim-detail {
+    width: 90%;
+    padding: 20px;
+  }
+}
+*/
+
+/* 🌟 Responsive Layout for Wheel Game */
+
+/* 📱 มือถือ (จอเล็กกว่า 600px) */
+@media (max-width: 600px) {
+  /* Navbar จัดแนวตั้ง */
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .nav-left,
+  .nav-right {
+    justify-content: center;
+  }
+
+  /* ยอดเงิน */
+  .balance {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  /* กล่องกรอกชื่อ */
+  #victim-detail {
+    width: 90%;
+    padding: 16px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* ตัวเลือกเดิมพัน */
+  .amount-container label,
+  .amount-container select {
+    font-size: 14px;
+  }
+
+  .amount-container select {
+    width: 80%;
+  }
+
+  /* วงล้อ */
+  .wheel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 15px 0;
+  }
+
+  #wheel {
+    max-width: 90vw;
+    height: auto;
+  }
+
+  /* ข้อความ “แตะวงล้อเพื่อหมุน” */
+  #spinHint {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  /* Container รวมทั้งหมด */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+}
+
+/* 💻 แท็บเล็ต (600px–900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .balance {
+    font-size: 20px;
+  }
+
+  .amount-container label,
+  .amount-container select {
+    font-size: 15px;
+  }
+
+  #victim-detail {
+    width: 80%;
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .wheel-container {
+    justify-content: center;
+  }
+
+  #wheel {
+    max-width: 75vw;
+    height: auto;
+  }
+
+  #spinHint {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+/* 🖥️ Desktop (จอใหญ่กว่า 900px) */
+@media (min-width: 901px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+
+  .balance {
+    font-size: 22px;
+  }
+
+  #victim-detail {
+    width: 60%;
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .wheel-container {
+    justify-content: center;
+  }
+
+  #wheel {
+    max-width: 400px;
+    height: auto;
+  }
+}
+
 
 

@@ -9,49 +9,53 @@
   <link href="style.css" rel="stylesheet" type="text/css" /> 
 </head>
 <body>
+  
+<div class="container">
+
   <h2>🎡 เกมหมุนวงล้อ 🎯</h2>
-<div id="victim-detail">
-  <label>โปรดระบุชื่อ สกุล</label>
-  <input id="victim_name">
-  <button id="btn1">บันทีกข้อมูล</button>
-</div>
-
-<div id="game-detail">
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="#" id="withdraw">🏦 ถอนเงิน</a>
-    </div>
-
-    <div class="nav-right">
-      <span class="welcome-text">👋 ยินดีต้อนรับ</span>
-    </div>
-  </nav>
-
-  
-  <h2 id="balance" class="balance">💰 ยอดเงิน: <span id="equityValue">0</span> บาท</h2>
-
-
-  <div class="wheel-container">
-    <canvas id="wheel" width="400" height="400"></canvas>
+  <div id="victim-detail">
+    <label>โปรดระบุชื่อ สกุล</label>
+    <input id="victim_name">
+    <button id="btn1">บันทีกข้อมูล</button>
   </div>
-  <br>
-  <button id="spinBtn">🎰 หมุนวงล้อ</button>
-  
-  <div class="amount-container">
-    <label for="betAmount">💵 เลือกจำนวนเงินเดิมพัน:</label>
-    <select id="betAmount">
-      <option value="10000">10,000</option>
-      <option value="20000">20,000</option>
-      <option value="30000">30,000</option>
-      <option value="40000">40,000</option>
-      <option value="50000">50,000</option>
-    </select>
-  </div>
-  <div id="result"></div>
- 
-  
-</div>
 
+  <div id="game-detail">
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="#" id="withdraw">🏦 ถอนเงิน</a>
+      </div>
+
+      <div class="nav-right">
+        <span class="welcome-text">👋 ยินดีต้อนรับ</span>
+      </div>
+    </nav>
+  
+    <h2 id="balance" class="balance">💰 ยอดเงิน: <span id="equityValue">0</span> บาท</h2>
+
+
+    <div class="wheel-container">
+      <canvas id="wheel" width="400" height="400"></canvas>
+    </div>
+  <!-- <br> -->
+  <!-- <button id="spinBtn">🎰 หมุนวงล้อ</button> -->
+    <p id="spinHint" style="font-weight:bold; color:#555; margin-top:10px;">
+      👉 แตะวงล้อเพื่อหมุน
+    </p>
+  
+    <div class="amount-container">
+      <label for="betAmount">💵 เลือกจำนวนเงินเดิมพัน:</label>
+      <select id="betAmount">
+        <option value="10000">10,000</option>
+        <option value="20000">20,000</option>
+        <option value="30000">30,000</option>
+        <option value="40000">40,000</option>
+        <option value="50000">50,000</option>
+      </select>
+    </div>
+    <div id="result"></div>  
+  </div>
+
+</div>  
 <script src="script.js" type="text/javascript"></script>
 
 </body>
