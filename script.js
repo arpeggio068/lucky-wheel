@@ -117,6 +117,7 @@ spinBtn.addEventListener("click", async () => {
         title: "🎉 ชนะ!",
         html: `<h3 style="color:green;">ได้รับ: ${reward.toLocaleString()} บาท</h3>`,
         //allowOutsideClick: false,
+        timer: 4000,
         background: "#f6fff5",
         confirmButtonColor: "#28a745",
         confirmButtonText: "ตกลง"
@@ -154,6 +155,7 @@ spinBtn.addEventListener("click", async () => {
         title: "😢 แพ้!",
         html: `<h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>`,
         //allowOutsideClick: false,
+        timer: 4000,
         background: "#fff5f5",
         confirmButtonColor: "#d33",
         confirmButtonText: "โอเค"
@@ -197,6 +199,7 @@ document.getElementById("btn1").addEventListener("click", async () => {
       width: 'auto',
       icon: "warning",
       title: "⚠️ โปรดระบุชื่อ-สกุลก่อนเล่นเกม!",
+      timer: 4000,
       confirmButtonColor: "#ffcc00"
     });
     nameInput.focus();
@@ -213,6 +216,7 @@ document.getElementById("btn1").addEventListener("click", async () => {
       icon: "success",
       title: `🎯 ยินดีต้อนรับ ${name}!`,
       html: "ได้รับยอดเงิน 100,000 บาท <br> ขอให้โชคดีในการหมุนวงล้อ 🍀",
+      timer: 10000,
       confirmButtonColor: "#28a745"
     });
 
@@ -263,6 +267,7 @@ document.getElementById("withdraw").addEventListener("click", async (e) => {
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
+        //timer: 4000,
         confirmButtonColor: "#ff8800"
       });
     } else {
