@@ -116,7 +116,7 @@ spinBtn.addEventListener("click", async () => {
         icon: "success",
         title: "🎉 ชนะ!",
         html: `<h3 style="color:green;">ได้รับ: ${reward.toLocaleString()} บาท</h3>`,
-        allowOutsideClick: false,
+        //allowOutsideClick: false,
         background: "#f6fff5",
         confirmButtonColor: "#28a745",
         confirmButtonText: "ตกลง"
@@ -132,6 +132,7 @@ spinBtn.addEventListener("click", async () => {
           <h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>
           <h3 style="color:red;">คุณมียอดเงินคงเหลือ: ${gEquity.toLocaleString()} บาท</h3>
           <h4>ต้องการเริ่มเล่นใหม่หรือไม่?</h4>`,
+        allowOutsideClick: false,
         background: "#fff5f5",
         confirmButtonColor: "#d33",
         confirmButtonText: "เริ่มใหม่",
@@ -152,7 +153,7 @@ spinBtn.addEventListener("click", async () => {
         icon: "error",
         title: "😢 แพ้!",
         html: `<h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>`,
-        allowOutsideClick: false,
+        //allowOutsideClick: false,
         background: "#fff5f5",
         confirmButtonColor: "#d33",
         confirmButtonText: "โอเค"
@@ -165,7 +166,7 @@ spinBtn.addEventListener("click", async () => {
         icon: "info",
         title: "เสมอ",
         text: "ไม่ได้ไม่เสีย",
-        allowOutsideClick: false,
+        //allowOutsideClick: false,
         confirmButtonColor: "#3085d6",
         confirmButtonText: "ตกลง"
       });
