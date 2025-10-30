@@ -98,7 +98,7 @@ spinBtn.addEventListener("click", async () => {
 
     // 🧮 คำนวณรางวัล
     const bet = parseInt(document.getElementById("betAmount").value);
-    const multiplier = parseFloat(winning.replace("X", "")); // "2.5X" → 2.5
+    const multiplier = parseFloat(winning.replace("X", "")) || 0;
     const reward = bet * multiplier;
 
     // ✅ อัปเดตยอดเงิน
@@ -109,37 +109,68 @@ spinBtn.addEventListener("click", async () => {
     await store.setItem("equity", gEquity);
     console.log(`🏦 Updated equity: ${gEquity}`);
 
-    // 🌟 แสดง SweetAlert2
     if (reward > 0) {
+      // ✅ ชนะ
       Swal.fire({
         width: 'auto',
         icon: "success",
         title: "🎉 ชนะ!",
         html: `<h3 style="color:green;">ได้รับ: ${reward.toLocaleString()} บาท</h3>`,
+        allowOutsideClick: false,
         background: "#f6fff5",
         confirmButtonColor: "#28a745",
         confirmButtonText: "ตกลง"
       });
+
+    } else if (reward < 0 && gEquity < 10000) {
+      // ⚠️ แพ้ + ยอดเงินเหลือน้อย
+      Swal.fire({
+        width: 'auto',
+        icon: "error",
+        title: "ยอดเงินคงเหลือไม่พอ",
+        html: `
+          <h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>
+          <h3 style="color:red;">คุณมียอดเงินคงเหลือ: ${gEquity.toLocaleString()} บาท</h3>
+          <h4>ต้องการเริ่มเล่นใหม่หรือไม่?</h4>`,
+        background: "#fff5f5",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "เริ่มใหม่",
+        showCancelButton: true,
+        cancelButtonText: 'ยกเลิก'
+      }).then(async (res) => {
+        if (res.isConfirmed) {
+          gEquity = 100000;
+          await store.setItem("equity", gEquity);
+          window.open("https://arpeggio068.github.io/scam-landing/", "_blank");
+        }
+      });
+
     } else if (reward < 0) {
+      // 😢 แพ้ปกติ
       Swal.fire({
         width: 'auto',
         icon: "error",
         title: "😢 แพ้!",
-        html: `<h3 style="color:red;">เสียเงิน: ${reward.toLocaleString()} บาท</h3>`,
+        html: `<h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>`,
+        allowOutsideClick: false,
         background: "#fff5f5",
         confirmButtonColor: "#d33",
         confirmButtonText: "โอเค"
       });
+
     } else {
+      // ⚖️ เสมอ
       Swal.fire({
         width: 'auto',
         icon: "info",
         title: "เสมอ",
         text: "ไม่ได้ไม่เสีย",
+        allowOutsideClick: false,
         confirmButtonColor: "#3085d6",
         confirmButtonText: "ตกลง"
       });
     }
+
 
     // 🌟 กระพริบข้อความในวงล้อ
     let blinkCount = 0;
@@ -228,6 +259,9 @@ document.getElementById("withdraw").addEventListener("click", async (e) => {
         icon: "warning",
         title: "⚠️ ถอนไม่ได้!",
         html: `ยอดเงินของคุณมีเพียง <b>${balance.toLocaleString()}</b> บาท<br>ยอดขั้นต่ำต้องมากกว่า 1,000,000 บาท`,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
         confirmButtonColor: "#ff8800"
       });
     } else {
