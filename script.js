@@ -40,156 +40,14 @@ var store = localforage.createInstance({
     }
   }
 
-  drawWheel();
 
-  let currentRotation = 0;
- // ตัวแปรนับจำนวนรอบ (ประกาศไว้นอก event listener)
+drawWheel();
+//wheel.style.willChange = "transform";
+let currentRotation = 0;
 let spinCount = 0;
 let negativeCountInSet = 0;
 
-/*spinBtn.addEventListener("click", async () => {
-  spinBtn.disabled = true;
-  console.log("negativeCountInSet:", negativeCountInSet);
-  console.log("spinCount:", spinCount);
 
-  // 🧹 รีเซ็ตข้อความในวงล้อให้กลับเป็นสีตั้งต้น
-  drawWheel();
-  result.textContent = "กำลังหมุน...";
-
-  // เพิ่มตัวนับรอบ
-  spinCount++;
-
-  // เมื่อครบ 10 รอบให้รีเซ็ตตัวนับชุดใหม่
-  if (spinCount % 10 === 1) {
-    negativeCountInSet = 0;
-  }
-
-  // 🧩 แยกกลุ่มบวก/ลบ
-  const positivePrizes = prizes.filter(p => !p.startsWith("-"));
-  const negativePrizes = prizes.filter(p => p.startsWith("-"));
-
-  let chosenPrize;
-
-  // เงื่อนไข: ในแต่ละชุด 10 รอบ ให้ค่าลบไม่เกิน 3 ครั้ง
-  if (negativeCountInSet < 3) {
-    const isNegativeRound = Math.random() < 0.3; // 30% โอกาสเป็นค่าลบ
-    if (isNegativeRound) {
-      chosenPrize = negativePrizes[Math.floor(Math.random() * negativePrizes.length)];
-      negativeCountInSet++;
-    } else {
-      chosenPrize = positivePrizes[Math.floor(Math.random() * positivePrizes.length)];
-    }
-  } else {
-    chosenPrize = positivePrizes[Math.floor(Math.random() * positivePrizes.length)];
-  }
-
-  // หา index จริงใน array prizes เดิม
-  const actualIndex = prizes.indexOf(chosenPrize);
-
-  const extraSpins = 5;
-  const targetAngle = (360 / numSegments) * actualIndex + 360 * extraSpins + 18;
-
-  currentRotation += targetAngle;
-  canvas.style.transition = "transform 5s cubic-bezier(0.2, 0.9, 0.3, 1)";
-  canvas.style.transform = `rotate(${currentRotation}deg)`;
-
-  setTimeout(async () => {
-    const winning = prizes[actualIndex];
-    result.innerHTML = `🎉 ผลลัพธ์: <b>${winning}</b>`;
-
-    // 🧮 คำนวณรางวัล
-    const bet = parseInt(document.getElementById("betAmount").value);
-    const multiplier = parseFloat(winning.replace("X", "")) || 0;
-    const reward = bet * multiplier;
-
-    // ✅ อัปเดตยอดเงิน
-    gEquity += reward;
-    document.getElementById("equityValue").textContent = gEquity.toLocaleString();
-
-    // ✅ บันทึกกลับลง localforage
-    await store.setItem("equity", gEquity);
-    console.log(`🏦 Updated equity: ${gEquity}`);
-
-    if (reward > 0) {
-      // ✅ ชนะ
-      Swal.fire({
-        width: 'auto',
-        icon: "success",
-        title: "🎉 ชนะ!",
-        html: `<h3 style="color:green;">ได้รับ: ${reward.toLocaleString()} บาท</h3>`,
-        //allowOutsideClick: false,
-        timer: 4000,
-        background: "#f6fff5",
-        confirmButtonColor: "#28a745",
-        confirmButtonText: "ตกลง"
-      });
-
-    } else if (reward < 0 && gEquity < 10000) {
-      // ⚠️ แพ้ + ยอดเงินเหลือน้อย
-      Swal.fire({
-        width: 'auto',
-        icon: "error",
-        title: "ยอดเงินคงเหลือไม่พอ",
-        html: `
-          <h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>
-          <h3 style="color:red;">คุณมียอดเงินคงเหลือ: ${gEquity.toLocaleString()} บาท</h3>
-          <h4>ต้องการเริ่มเล่นใหม่หรือไม่?</h4>`,
-        allowOutsideClick: false,
-        background: "#fff5f5",
-        confirmButtonColor: "#d33",
-        confirmButtonText: "เริ่มใหม่",
-        showCancelButton: true,
-        cancelButtonText: 'ยกเลิก'
-      }).then(async (res) => {
-        if (res.isConfirmed) {
-          gEquity = 100000;
-          await store.setItem("equity", gEquity);
-          window.open("https://arpeggio068.github.io/scam-landing/", "_blank");
-        }
-      });
-
-    } else if (reward < 0) {
-      // 😢 แพ้ปกติ
-      Swal.fire({
-        width: 'auto',
-        icon: "error",
-        title: "😢 แพ้!",
-        html: `<h3 style="color:red;">เสียเงิน: ${Math.abs(reward).toLocaleString()} บาท</h3>`,
-        //allowOutsideClick: false,
-        timer: 4000,
-        background: "#fff5f5",
-        confirmButtonColor: "#d33",
-        confirmButtonText: "โอเค"
-      });
-
-    } else {
-      // ⚖️ เสมอ
-      Swal.fire({
-        width: 'auto',
-        icon: "info",
-        title: "เสมอ",
-        text: "ไม่ได้ไม่เสีย",
-        //allowOutsideClick: false,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "ตกลง"
-      });
-    }
-
-
-    // 🌟 กระพริบข้อความในวงล้อ
-    let blinkCount = 0;
-    const blinkInterval = setInterval(() => {
-      drawWheel(actualIndex, blinkCount % 2 === 0);
-      blinkCount++;
-      if (blinkCount > 6) { // กระพริบ 3 ครั้ง
-        clearInterval(blinkInterval);
-        drawWheel(actualIndex, false);
-        spinBtn.disabled = false;
-      }
-    }, 300);
-  }, 5000);
-
-});*/
 
 wheel.addEventListener("click", async () => {
   if (wheel.disabled) return; // กันคลิกซ้ำระหว่างหมุน
@@ -238,6 +96,10 @@ wheel.addEventListener("click", async () => {
   currentRotation += targetAngle;
   wheel.style.transition = "transform 5s cubic-bezier(0.2, 0.9, 0.3, 1)";
   wheel.style.transform = `rotate(${currentRotation}deg)`;
+  // requestAnimationFrame(() => {
+  //   wheel.style.transition = "transform 5s cubic-bezier(0.2, 0.9, 0.3, 1)";
+  //   wheel.style.transform = `rotate(${currentRotation}deg)`;
+  // });
 
   setTimeout(async () => {
     const winning = prizes[actualIndex];
@@ -445,6 +307,13 @@ let gName;
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+
+    wheel.style.transition = "transform 0.5s ease-out";
+    wheel.style.transform = "rotate(2deg)";
+    setTimeout(() => {
+      wheel.style.transform = "rotate(0deg)";
+    }, 300);
+    
     gEquity = await store.getItem("equity");
     gName = await store.getItem("victim_name");
 
